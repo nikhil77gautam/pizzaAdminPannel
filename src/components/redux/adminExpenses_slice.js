@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    getAllExpenses: [],
+  getAllExpenses: [],
   message: "",
   loading: false,
   error: null,
@@ -10,7 +10,9 @@ const initialState = {
 
 export const getAllExpenses = createAsyncThunk("getAllExpense", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/getAllExpense");
+    const response = await axios.get(
+      "https://pizzabackend-0x3r.onrender.com/getAllExpense"
+    );
     return response.data.expenses;
   } catch (error) {
     throw Error(error.message);

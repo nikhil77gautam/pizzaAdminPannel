@@ -10,8 +10,10 @@ const initialState = {
 
 export const fetchAllUsers = createAsyncThunk("getAllUsers", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/getAllUsers");
-       console.log("response",response)
+    const response = await axios.get(
+      "https://pizzabackend-0x3r.onrender.com/getAllUsers"
+    );
+    console.log("response", response);
 
     return response.data.message;
   } catch (error) {

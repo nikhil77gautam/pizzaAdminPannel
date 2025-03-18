@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { fetchAllMeals } from './redux/getallAdminmeals_Slice';
-import DeleteConfirmation from './DeleteConfirmation/DeleteConfirmation';
-import UpdateMeals from './UpdateMeals';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import { fetchAllMeals } from "./redux/getallAdminmeals_Slice";
+import DeleteConfirmation from "./DeleteConfirmation/DeleteConfirmation";
+import UpdateMeals from "./UpdateMeals";
 
 const MealsList = () => {
   const [mealsId, setMealsId] = useState(null);
@@ -25,14 +25,17 @@ const MealsList = () => {
   const handleDeleteMeal = async () => {
     if (mealsId) {
       try {
-        await axios.post('http://localhost:8000/deleteOneMeals', {
-          itemsId: mealsId,
-        });
+        await axios.post(
+          "https://pizzabackend-0x3r.onrender.com/deleteOneMeals",
+          {
+            itemsId: mealsId,
+          }
+        );
         setMealsId(null);
         setIsModalOpen(false); // Close modal after deletion
         dispatch(fetchAllMeals()); // Refetch meals after delete
       } catch (error) {
-        console.error('Error deleting meal:', error);
+        console.error("Error deleting meal:", error);
       }
     }
   };
@@ -59,50 +62,50 @@ const MealsList = () => {
   // Column definitions for the ag-grid
   const columnDefs = [
     {
-      headerName: 'Image',
-      field: 'image',
+      headerName: "Image",
+      field: "image",
       cellRenderer: (params) => (
         <img
-          src={`http://localhost:8000/${params.value}`}
+          src={`https://pizzabackend-0x3r.onrender.com/${params.value}`}
           alt={params.data.title}
           className="w-16 h-16 object-cover rounded-lg"
         />
       ),
     },
     {
-      headerName: 'Title',
-      field: 'title',
-      filter: 'agTextColumnFilter',
+      headerName: "Title",
+      field: "title",
+      filter: "agTextColumnFilter",
     },
     {
-      headerName: 'Description',
-      field: 'description',
-      filter: 'agTextColumnFilter',
+      headerName: "Description",
+      field: "description",
+      filter: "agTextColumnFilter",
     },
     {
-      headerName: 'Price',
-      field: 'price',
-      filter: 'agNumberColumnFilter',
+      headerName: "Price",
+      field: "price",
+      filter: "agNumberColumnFilter",
       cellRenderer: (params) => `₹${params.value}`,
     },
     {
-      headerName: 'Category',
-      field: 'category',
-      filter: 'agTextColumnFilter',
+      headerName: "Category",
+      field: "category",
+      filter: "agTextColumnFilter",
     },
     {
-      headerName: 'Actions',
+      headerName: "Actions",
       cellRenderer: (params) => (
         <div className="flex space-x-4">
           <button
-            onClick={() => openUpdateModal(params.data)} 
+            onClick={() => openUpdateModal(params.data)}
             className="bg-blue-500 text-white px-4 py-0 rounded-lg hover:bg-blue-600"
-            >
+          >
             Edit
           </button>
           <button
             className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-            onClick={() => openDeleteModal(params.data)} 
+            onClick={() => openDeleteModal(params.data)}
           >
             Delete
           </button>
@@ -114,7 +117,7 @@ const MealsList = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6 text-gray-700">Meal List</h1>
-      <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
+      <div className="ag-theme-alpine" style={{ height: 600, width: "100%" }}>
         <AgGridReact
           rowData={allMealsFetch}
           columnDefs={columnDefs}

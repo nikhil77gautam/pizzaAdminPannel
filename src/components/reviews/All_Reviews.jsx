@@ -29,7 +29,7 @@ const ReviewsPage = () => {
     // Delete review function
     const handleDelete = async (reviewId) => {
         try {
-            await axios.delete(`/api/reviews/delete/${reviewId}`);
+            await axios.delete(`https://pizzabackend-0x3r.onrender.com/delete/${reviewId}`);
             dispatch(fetchReviews());
         } catch (error) {
             console.error('Failed to delete review', error);

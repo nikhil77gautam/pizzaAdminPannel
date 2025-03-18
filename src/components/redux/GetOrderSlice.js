@@ -8,16 +8,21 @@ const initialState = {
   error: null,
 };
 
-export const getAllOrderAdmin = createAsyncThunk("orders/getAllOrderAdmin", async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/getAllOrders");
-    console.log("response.data.orders",response.data.orders)
+export const getAllOrderAdmin = createAsyncThunk(
+  "orders/getAllOrderAdmin",
+  async () => {
+    try {
+      const response = await axios.get(
+        "https://pizzabackend-0x3r.onrender.com/getAllOrders"
+      );
+      console.log("response.data.orders", response.data.orders);
 
-    return response.data.orders;
-  } catch (error) {
-    throw Error(error.message);
+      return response.data.orders;
+    } catch (error) {
+      throw Error(error.message);
+    }
   }
-});
+);
 
 const getAllorderAdmin_slice = createSlice({
   name: "getAllOrderAdmin",

@@ -10,8 +10,10 @@ const initialState = {
 
 export const fetchReviews = createAsyncThunk("getAllReviews", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/getAllReviews");
-    console.log("response",response)
+    const response = await axios.get(
+      "https://pizzabackend-0x3r.onrender.com/getAllReviews"
+    );
+    console.log("response", response);
 
     return response.data.reviews;
   } catch (error) {

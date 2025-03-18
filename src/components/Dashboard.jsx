@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getAllOrderAdmin } from "./redux/GetOrderSlice";
-import { fetchAllMeals } from './redux/getallAdminmeals_Slice';
+import { fetchAllMeals } from "./redux/getallAdminmeals_Slice";
 import { readallpizzas } from "./redux/getAllAdminPizza_Slice";
-import { useDispatch, useSelector } from 'react-redux';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const Dashboard = () => {
   const [pendingOrder, setPendingOrder] = useState([]);
@@ -13,11 +22,31 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
   const orderData = useSelector((state) => state.getAllOrder.adminAllOrder);
-  
-  const vegPizzaCount = useSelector((state) => state.getAdminPizzas.readAllpizza.filter(pizza => pizza.category === 'veg').length);
-  const nonVegPizzaCount = useSelector((state) => state.getAdminPizzas.readAllpizza.filter(pizza => pizza.category === 'nonveg').length);
-  const beveragesCount = useSelector((state) => state.getAllMeals.readAllmeals.filter(meal => meal.category === 'Beverages').length);
-  const dessertsCount = useSelector((state) => state.getAllMeals.readAllmeals.filter(meal => meal.category === 'Desserts').length);
+
+  const vegPizzaCount = useSelector(
+    (state) =>
+      state.getAdminPizzas.readAllpizza.filter(
+        (pizza) => pizza.category === "veg"
+      ).length
+  );
+  const nonVegPizzaCount = useSelector(
+    (state) =>
+      state.getAdminPizzas.readAllpizza.filter(
+        (pizza) => pizza.category === "nonveg"
+      ).length
+  );
+  const beveragesCount = useSelector(
+    (state) =>
+      state.getAllMeals.readAllmeals.filter(
+        (meal) => meal.category === "Beverages"
+      ).length
+  );
+  const dessertsCount = useSelector(
+    (state) =>
+      state.getAllMeals.readAllmeals.filter(
+        (meal) => meal.category === "Desserts"
+      ).length
+  );
 
   useEffect(() => {
     dispatch(getAllOrderAdmin());
@@ -26,16 +55,22 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const pending = orderData.filter(order =>
-      order.orderStatus === "Pending" ||
-      order.orderStatus === "Confirmed" ||
-      order.orderStatus === "Out for Delivery"
+    const pending = orderData.filter(
+      (order) =>
+        order.orderStatus === "Pending" ||
+        order.orderStatus === "Confirmed" ||
+        order.orderStatus === "Out for Delivery"
     );
 
-    const delivered = orderData.filter(order => order.orderStatus === "Delivered");
+    const delivered = orderData.filter(
+      (order) => order.orderStatus === "Delivered"
+    );
 
     const revenue = delivered.reduce((acc, order) => {
-      const orderTotal = order.cartDetails.reduce((sum, item) => sum + (parseFloat(item.total) || 0), 0);
+      const orderTotal = order.cartDetails.reduce(
+        (sum, item) => sum + (parseFloat(item.total) || 0),
+        0
+      );
       return acc + orderTotal;
     }, 0);
 
@@ -45,10 +80,10 @@ const Dashboard = () => {
   }, [orderData]);
 
   const chartData = [
-    { name: 'Veg Pizza', count: vegPizzaCount },
-    { name: 'Non-Veg Pizza', count: nonVegPizzaCount },
-    { name: 'Beverages', count: beveragesCount },
-    { name: 'Desserts', count: dessertsCount }
+    { name: "Veg Pizza", count: vegPizzaCount },
+    { name: "Non-Veg Pizza", count: nonVegPizzaCount },
+    { name: "Beverages", count: beveragesCount },
+    { name: "Desserts", count: dessertsCount },
   ];
 
   return (
@@ -78,7 +113,9 @@ const Dashboard = () => {
       </div>
 
       <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Pizzas and Meals Overview</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-4">
+          Pizzas and Meals Overview
+        </h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -94,13 +131,22 @@ const Dashboard = () => {
       <div className="mt-10 bg-white p-6 rounded-lg shadow-lg">
         <h3 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link to="/admin/addpizza" className="block bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 text-center">
+          <Link
+            to="/admin/addpizza"
+            className="block bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 text-center"
+          >
             Add New Pizza
           </Link>
-          <Link to="/admin/OrdersPage" className="block bg-green-500 text-white p-4 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-300 text-center">
+          <Link
+            to="/admin/OrdersPage"
+            className="block bg-green-500 text-white p-4 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-300 text-center"
+          >
             View Orders
           </Link>
-          <Link to="/admin/ViewAllCustomers" className="block bg-yellow-500 text-white p-4 rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-300 text-center">
+          <Link
+            to="/admin/ViewAllCustomers"
+            className="block bg-yellow-500 text-white p-4 rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-300 text-center"
+          >
             View Customers
           </Link>
         </div>

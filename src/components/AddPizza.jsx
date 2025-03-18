@@ -31,7 +31,7 @@ const AddPizza = () => {
         }
 
         try {
-            await axios.post('http://localhost:8000/createpizza', formData, {
+            await axios.post('https://pizzabackend-0x3r.onrender.com/createpizza', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

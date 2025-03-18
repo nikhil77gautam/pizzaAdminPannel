@@ -35,7 +35,7 @@ const AddExpense = ({ onCloseAddExpenses }) => {
     }
 
     try {
-      const res = await axios.post('http://localhost:8000/addExpense', data, {
+      const res = await axios.post('https://pizzabackend-0x3r.onrender.com/addExpense', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log(res.data);

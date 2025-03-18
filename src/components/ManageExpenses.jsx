@@ -30,7 +30,7 @@ const ManageExpenses = () => {
   const handleDelete = async () => {
     if (deleteExpenseId) {
       try {
-        await axios.delete(`http://localhost:8000/delete/${deleteExpenseId}`);
+        await axios.delete(`https://pizzabackend-0x3r.onrender.com/delete/${deleteExpenseId}`);
         dispatch(getAllExpenses()); // Refresh expenses after deletion
         setDeleteExpenseId(null); // Clear the delete ID after deletion
       } catch (error) {
@@ -118,7 +118,7 @@ const ManageExpenses = () => {
                   {expense.billImage && (
                     <>
                       <img
-                        src={`http://localhost:8000/${expense.billImage}`}
+                        src={`https://pizzabackend-0x3r.onrender.com/${expense.billImage}`}
                         alt={expense.title}
                         className="w-16 h-16 sm:w-20 sm:h-20 object-cover"
                       />

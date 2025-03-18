@@ -10,8 +10,10 @@ const initialState = {
 
 export const readallpizzas = createAsyncThunk("readallpizzas", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/readallpizzas");
-       console.log("response",response)
+    const response = await axios.get(
+      "https://pizzabackend-0x3r.onrender.com/readallpizzas"
+    );
+    console.log("response", response);
 
     return response.data;
   } catch (error) {

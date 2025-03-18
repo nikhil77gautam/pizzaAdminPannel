@@ -2,22 +2,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    readAllmeals: [],
+  readAllmeals: [],
   message: "",
   loading: false,
   error: null,
 };
 
-
 export const fetchAllMeals = createAsyncThunk("readAllmeals", async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/readAllmeals");
-      return response.data;
-    } catch (error) {
-      throw Error(error.message);
-    }
-  });
-
+  try {
+    const response = await axios.get(
+      "https://pizzabackend-0x3r.onrender.com/readAllmeals"
+    );
+    return response.data;
+  } catch (error) {
+    throw Error(error.message);
+  }
+});
 
 const getAllAdminMeals_Slice = createSlice({
   name: "readAllmeals",
@@ -32,7 +32,6 @@ const getAllAdminMeals_Slice = createSlice({
         state.loading = false;
         state.readAllmeals = action.payload;
 
-       
         state.message = "success";
       })
       .addCase(fetchAllMeals.rejected, (state, action) => {

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { fetchAllMeals } from './redux/getallAdminmeals_Slice';
-import { useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
-import { ToastContainer } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { fetchAllMeals } from "./redux/getallAdminmeals_Slice";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
 
 const UpdateMeals = (props) => {
   // Initialize meals state
   const [meals, setMeals] = useState({
-    title: '',
-    description: '',
-    price: '',
-    category: '',  // Changed from size to category
+    title: "",
+    description: "",
+    price: "",
+    category: "", // Changed from size to category
     image: null,
   });
 
@@ -21,10 +21,10 @@ const UpdateMeals = (props) => {
   useEffect(() => {
     if (props.data) {
       setMeals({
-        title: props.data.title || '',
-        description: props.data.description || '',
-        price: props.data.price || '',
-        category: props.data.category || '',  // Changed to category
+        title: props.data.title || "",
+        description: props.data.description || "",
+        price: props.data.price || "",
+        category: props.data.category || "", // Changed to category
         image: props.data.image || null,
       });
     }
@@ -46,28 +46,32 @@ const UpdateMeals = (props) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', meals.title);
-    formData.append('description', meals.description);
-    formData.append('price', meals.price);
-    formData.append('category', meals.category);  // Changed to category
+    formData.append("title", meals.title);
+    formData.append("description", meals.description);
+    formData.append("price", meals.price);
+    formData.append("category", meals.category); // Changed to category
     if (meals.image) {
-      formData.append('image', meals.image);
+      formData.append("image", meals.image);
     }
 
     try {
-      const response = await axios.put(`http://localhost:8000/updateMeals/${props.data._id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.put(
+        `https://pizzabackend-0x3r.onrender.com/updateMeals/${props.data._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 200) {
-        toast.success('Meal updated successfully!');
+        toast.success("Meal updated successfully!");
       }
       props.closeUpdateModelOpenMeals();
       dispatch(fetchAllMeals());
     } catch (error) {
-      console.error('Error updating meal:', error);
+      console.error("Error updating meal:", error);
     }
   };
 
@@ -78,7 +82,10 @@ const UpdateMeals = (props) => {
         <h2 className="text-2xl font-semibold text-center mb-6">Update Meal</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="title"
+            >
               Meal Name
             </label>
             <input
@@ -92,7 +99,10 @@ const UpdateMeals = (props) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="description"
+            >
               Description
             </label>
             <textarea
@@ -105,7 +115,10 @@ const UpdateMeals = (props) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="price"
+            >
               Price
             </label>
             <input
@@ -119,7 +132,10 @@ const UpdateMeals = (props) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="category"
+            >
               Category
             </label>
             <select
@@ -129,14 +145,19 @@ const UpdateMeals = (props) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             >
-              <option value="" disabled>Select a category</option>
+              <option value="" disabled>
+                Select a category
+              </option>
               <option value="Beverages">Beverages</option>
               <option value="Desserts">Desserts</option>
             </select>
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="image"
+            >
               Image
             </label>
             <input
